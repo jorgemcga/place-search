@@ -1,0 +1,50 @@
+
+
+<div class="container-fluid">
+    <!-- Breadcrumb -->
+    <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item"><a href="index/index">Home</a></li>
+        <li class="breadcrumb-item"><a href="UserChangeType/typeSet">Alterar tipo</a></li>
+    </ol>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <strong>Alterar tipo</strong>
+                    <!-- <div class="card-actions">
+                            <a onclick="location='user/edit'"><i class="icon-plus"></i></a>
+                        </div>-->
+                </div>
+                <div  class="card-block">
+                    <form action="<?php echo BASE_URL ?>userChangeType/write" method="post">
+                        <input type="hidden" name="id" value="<?php echo $userId ?>"/>
+                        <!--                        <div>
+                                                    Tipo
+                                                    <select name="type">
+                                                        <option value="basic">Basic</option>
+                                                        <option value="admin">Adm</option>
+                                                    </select>
+                                                </div>-->
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="name">Tipo</label>
+                                    <select name="type" class="form-control" >
+                                        <option value="basic">Publico</option>
+                                        <option value="admin">Administrador</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <input class="btn btn-primary" type="submit" value="Gravar"/>
+                            </div>
+                        </div> 
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

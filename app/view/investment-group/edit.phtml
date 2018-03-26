@@ -1,0 +1,42 @@
+<link href="<?php echo BASE_URL ?>css/lib/select-loko.css" rel="stylesheet" type="text/css"/>
+
+<div class="container-fluid">
+    <!-- Breadcrumb -->
+    <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item"><a href="index/index">Home</a></li>
+        <li class="breadcrumb-item"><a href="investmentGroup/index">Grupo de investimento</a></li>
+        <li class="breadcrumb-item">Formulário</li>
+    </ol>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <strong>Grupo de investimento</strong>
+                    <div class="card-actions">
+                    </div>           
+                </div>
+                <div  class="card-block">
+                    <form action="<?php echo BASE_URL ?>investmentGroup/write" method="post">
+                        <input type="hidden" name="id" value="<?php echo isset($investmentgroup['id']) ? $investmentgroup['id'] : 0 ?>"/>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="name">Nome</label>
+                                    <input type="text" class="form-control" name="name" value="<?php echo isset($investmentgroup['name']) ? $investmentgroup['name'] : '' ?>"  required=""/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <input class="btn btn-primary" type="submit" value="Gravar"/>
+                            </div>
+                        </div>    
+                    </form>   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="<?php echo BASE_URL ?>js/city/city-select.js" type="text/javascript"></script>
+<script src="<?php echo BASE_URL ?>js/investmentgroup/view-investmentgroup.js" type="text/javascript"></script>

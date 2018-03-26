@@ -1,0 +1,81 @@
+<style>
+    #map
+    {
+        width: 100%;
+        height: 100vh;
+    }
+</style>
+
+<input id="baseUrl" type="hidden" value="<?php echo BASE_URL ?>">
+<div id="map"></div>
+
+<script>
+    function initMap()
+    {
+        Mapa.instanciar();
+        Marker.addAll();
+    }
+
+    function addMarker(location, map) {
+        var marker = new google.maps.Marker({
+            position: location,
+            label: labels[labelIndex++ % labels.length],
+            map: map
+        });
+    }
+</script>
+
+<script async defer accesskey=""src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhSrhxUDRpBokcU3OFAUpBkh2owtOXemw&callback=initMap"></script>
+
+<!-- Novo Marker Modal-->
+<div class="modal fade" id="newMarkerModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Nova Demanda</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <form action="<?php echo BASE_URL ?>marker/save" method="post">
+                <div class="modal-body">
+                     <div class="alert alert-info">
+                         As contribuições serão recebidas até dia 31/05/18. <br>
+                         Após este período, favor enviar e-mail para
+                         <a href="mailto:planmobrmbh@transportes.mg.gov.br" target="_top">planmobrmbh@transportes.mg.gov.br</a>
+                     </div>
+                    <div class="form-group">
+                        <input id="id" name="id" class="form-control" type="hidden">
+                        <?php $headerUserData = $this->obj->authService->getUserData(); ?>
+                        <input id="iduser" name="user_id" class="form-control" type="hidden" value="<?php echo $headerUserData['id']; ?>">
+                        <label>Título</label>
+                        <input id="title" name="title" class="form-control">
+                        <br>
+                        <label>Endereço</label>
+                        <input id="end" name="end" class="form-control"><div id="endloading">Buscando Endereço...</div>
+                        <br>
+                        <label>Coordenadas</label>
+                        <input id="coord" name="coord" class="form-control">
+                        <br>
+                        <label>Tipo de Demanda</label>
+                        <select id="type" class="form-control" name="marker_type_id">
+                            <?php foreach ($themes as $theme) { ?>
+                                <?php foreach ($theme["marcadores"] as $type) { ?>
+                                    <option value="<?php echo $type["id"]?>">
+                                        <?php echo utf8_encode($type["title"]); ?>
+                                    </option>
+                                <?php } }?>
+                        </select>
+                        <br>
+                        <label>Observação</label>
+                        <textarea id="obs" name="obs" class="form-control"></textarea>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                <a id="saveMarker" class="btn btn-primary" onclick="Marker.saveMarker()">Salvar</a>
+            </div>
+        </div>
+    </div>
+</div>

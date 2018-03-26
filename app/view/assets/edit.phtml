@@ -1,0 +1,55 @@
+<link href="<?php echo BASE_URL ?>css/lib/select-loko.css" rel="stylesheet" type="text/css"/>
+
+<div class="container-fluid">
+    <!-- Breadcrumb -->
+    <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item"><a href="index/index">Home</a></li>
+        <li class="breadcrumb-item"><a href="assets/index">Ativos</a></li>
+        <li class="breadcrumb-item">Formulário</li>
+    </ol>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <strong>Ativo</strong>
+                    <div class="card-actions">
+                    </div>           
+                </div>
+                <div  class="card-block">
+                    <form action="<?php echo BASE_URL ?>assets/write" method="post">
+                        <input type="hidden" name="id" value="<?php echo isset($assets['id']) ? $assets['id'] : 0 ?>"/>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="name">Grupo</label>
+                                    <select class="form-control" name="investment_group_id" required="">
+                                        <option></option>
+                                        <?php foreach ($investimentsubgroups as $investimentsubgroup) { ?>
+                                            <option value="<?php echo $investimentsubgroup['id'] ?>" <?php echo isset($assets['investment_group_id']) && $assets['investment_group_id'] == $investimentsubgroup['id'] ? "selected=''" : '' ?>><?php echo $investimentsubgroup['name'] ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="name">Nome</label>
+                                    <input type="text" class="form-control" name="name" value="<?php echo isset($assets['name']) ? $assets['name'] : '' ?>"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <input class="btn btn-primary" type="submit" value="Gravar"/>
+                            </div>
+                        </div>    
+                    </form>   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="<?php echo BASE_URL ?>js/city/city-select.js" type="text/javascript"></script>
+<script src="<?php echo BASE_URL ?>js/assets/view-assets.js" type="text/javascript"></script>

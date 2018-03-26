@@ -1,0 +1,28 @@
+{
+    "minimum-stability": "dev",
+    
+    "require": {
+        "edily/base": "dev-master",        
+        "doctrine/dbal": "^2.5.12",
+        "filp/whoops": "^2.1",
+        "aura/session": "^2.1",
+        "phpunit/phpunit": "^6.2",
+        "phpunit/php-invoker": "*",
+        "phpunit/dbunit": ">=1.2",
+        "aura/router": "^3.1",
+        "zendframework/zend-diactoros": "^1.4",
+        "monolog/monolog": "^1.23",
+    },
+    
+    "autoload": {	
+        "psr-4": {            
+            "App\\Model\\": "app//model",
+            "App\\Model\\Factory\\": "app//model//factory",
+            "App\\Model\\Factory\\Interfaces\\": "app//model//factory//interfaces",
+            "App\\Model\\Interfaces\\": "app//model//interfaces",
+            "App\\Controller\\": "app//controller",
+            "Lib\\": "lib",
+            "App\\Model\\Repository\\": "app//model//repository"
+        }
+    }    
+}

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <?php
+    require_once 'head.php';
+    $headerUserData = $this->obj->authService->getUserData();
+    ?>
+    <link href="<?php echo BASE_URL ?>/public/css/style-app.css" rel="stylesheet">
+    <script type="text/javascript" src="<?php echo BASE_URL?>/public/js/controls.js"></script>
+</head>
+
+<body>
+<!-- Navigation-->
+<header>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand">Procurar Lugares</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="#navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse px-2">
+            <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                <form class="form-inline my-2 my-lg-0">
+                    <div class="input-group">
+                        <input id="search-address" class="form-control" placeholder="Buscar endereço...">
+                        <span class="input-group-btn">
+                            <button class="btn btn-info" type="button" onclick="Marker.getCoord()">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </span>
+                    </div>
+                </form>
+                <?php //if ($headerUserData["name"]) { ?>
+<!--                    <li class="nav-item">-->
+<!--                        <a class="nav-link" style="cursor: initial">-->
+<!--                            <i class='fa fa-fw fa-user'></i>--><?php //echo $headerUserData['name']; ?>
+<!--                        </a>-->
+<!--                    </li>-->
+                <?php //} ?>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+<div class="menu bg-dark text-white">
+    <ul class="nav flex-sm-column">
+        <li class="nav-item text-center">
+            <h3 class="nav-link nav-side">
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                <span class="nav-link-text">Procurar Lugares</span>
+            </h3>
+        </li>
+        <li class="nav-item" data-toggle="collapse">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label class="mt-2"> Pesquisar algo específico </label>
+                    <input id="search-place" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label class="mt-2"> Filtrar Estabelecimentos </label>
+                    <br><input name="filter-place" type="radio" value="restaurant" checked> Restaurantes
+                    <br><input name="filter-place" type="radio" value="bar"> Bares
+                    <br><input name="filter-place" type="radio" value="food"> Lanchonete
+                    <br><input name="filter-place" type="radio" value="meal_delivery"> Delivery
+                </div>
+                <div class="form-group">
+                    <label class="mt-2"> Defina a distância </label>
+                    <div class="row col-md-3">
+                    <input id="search-distance" class="form-control" type="number" value="1" min="1" max="30">
+                        (quilômetros)
+                    </div>
+                </div>
+                <span class="btn btn-info mt-3" onclick="ServicePlaces.searchPlace()">Buscar</span>
+            </form>
+        </li>
+        <li class="nav-item mt-5">
+            <h6>
+                <i class="fa fa-list" aria-hidden="true"></i>
+                Listagem de Locais <span id="tot-place"></span>
+            </h6>
+            <ul class="" id="submenu">
+            </ul>
+        </li>
+    </ul>
+</div>
+
+<div class="toggle-menu bg-light text-center pt-3" onclick="jQuery('.menu, .toggle-menu').toggleClass('active')">
+    <i class="fa fa-bars" style="font-size:20px" aria-hidden="true"></i>
+</div>
+
+<div class="content">
+    <?php $this->content(0) ?>
+</div>
+
+<!-- Erros Modal-->
+<?php require_once '../app/view/layout/main-alert.php' ?>
+
+<?php require_once 'footer.php'; ?>
+
+<!-- Loading Modal-->
+<div class="modal fade" id="loadingModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <img src="<?php echo BASE_URL ?>/public/img/loading.gif">
+                <div class="text-center">
+                    <h3>Carregando...</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Login Modal-->
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Entrar</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <form action="<?php echo BASE_URL ?>auth/auth" method="post">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>E-mail</label>
+                        <input name="email" class="form-control">
+                        <label>Senha</label>
+                        <input name="password" class="form-control" type="password">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="submit" >Entrar</button>
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                    <a style="color: blue;" onclick="location='userResetPassword/form'">Esqueceu sua senha?</a>
+                </div>
+                <div class="modal-footer" style="display: inline-block">
+                    <a style="color: blue;" data-toggle="modal" data-dismiss="modal" data-target="#cadModal">Não tem cadastro? Clique aqui.</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!--Cadastro Modal-->
+<div class="modal fade" id="cadModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Solicitar cadastro</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <form action="<?php echo BASE_URL ?>user/newPublicUser" method="post">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Nome</label>
+                        <input name="name" class="form-control">
+                        <label>E-mail</label>
+                        <input name="email" class="form-control">
+                    </div>
+<!--                    <div class="alert alert-info">-->
+<!--                        Obs: Um e-mail de confirmação será enviado no seu e-mail. <br>-->
+<!--                        Caso não receba em sua caixa de entrada, verifique sua caixa de SPAM.-->
+<!--                    </div>-->
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary">Solicitar</button>
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                </div>
+                <div class="modal-footer" style="display: inline-block">
+                    <a style="color: blue;" data-toggle="modal" data-dismiss="modal" data-target="#loginModal">Já tem cadastro? Clique aqui.</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="msgAdd"></div>
+
+<img id="pin-img-new" src="<?php echo BASE_URL ?>/public/img/pins/new.png" class="pin-img-new">
+
+</body>
+</html>

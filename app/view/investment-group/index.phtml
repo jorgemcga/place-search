@@ -1,0 +1,40 @@
+<div class="container-fluid">
+    <!-- Breadcrumb -->
+    <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item"><a href="index/index">Home</a></li>
+        <li class="breadcrumb-item"><a href="investmentGroup/index">Grupos de investimentos</a></li>
+    </ol>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <strong>Grupos de investimentos</strong>
+                    <div class="card-actions">
+                        <a onclick="location='investmentGroup/edit'"><i class="icon-plus"></i></a>
+                    </div>           
+                </div>
+                <div  class="card-block">
+                    <table class="table table-responsive table-hover table-outline mb-0">
+                        <thead class="thead-default">
+                            <tr>
+                                <th>ID</th>
+                                <th>Nome</th>  
+                                <th></th>  
+                            </tr>
+                        </thead>
+                        <?php foreach ($investmentgroups as $investmentgroup): ?> 
+                            <tr>
+                                <td><?php echo $investmentgroup['id'] ?></td>
+                                <td><?php echo $investmentgroup['name'] ?></td>            
+                                <td>
+                                    <a class="btn btn-link" href="investmentGroup/edit/id/<?php echo $investmentgroup['id'] ?>"
+                                       >Editar</a>
+                                </td>            
+                            </tr>
+                        <?php endforeach; ?>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

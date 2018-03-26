@@ -1,0 +1,15 @@
+PHPUnit 6.2.3 by Sebastian Bergmann and contributors.
+
+E                                                                   1 / 1 (100%)
+
+Time: 88 ms, Memory: 8.00MB
+
+There was 1 error:
+
+1) UserTest::testIndexAction
+Undefined property: UserTest::$baseUrl
+
+/home/edily/www/edily/dr-rodrigo/www/dr-test-back-end/test/controller/UserTest.php:16
+
+ERRORS!
+Tests: 1, Assertions: 0, Errors: 1.

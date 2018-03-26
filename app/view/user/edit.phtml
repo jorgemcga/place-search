@@ -1,0 +1,79 @@
+<link href="<?php echo BASE_URL ?>css/lib/select-loko.css" rel="stylesheet" type="text/css"/>
+
+<div class="container-fluid">
+    <!-- Breadcrumb -->
+    <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item"><a href="index/index">Home</a></li>
+        <li class="breadcrumb-item"><a href="user/index">Usuário</a></li>
+        <li class="breadcrumb-item">Formulário</li>
+    </ol>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <strong>Usuário</strong>
+                    <div class="card-actions">
+                        <?php if (isset($user['token'])) { ?>
+                            <a onclick="location = 'userChangePassword/passwordSet/token/<?php echo $user['token'] ?>'" title="Redefinir senha"><i class="icon-plus"></i></a>
+                        <?php } ?>
+                    </div>           
+                </div>
+                <div  class="card-block">
+                    <form action="<?php echo BASE_URL ?>user/write" method="post">
+                        <input type="hidden" name="id" value="<?php echo isset($user['id']) ? $user['id'] : 0 ?>"/>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="name">Nome (opcional)</label>
+                                    <input type="text" class="form-control" name="name" value="<?php echo isset($user['name']) ? $user['name'] : '' ?>"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="name">Apelido</label>
+                                    <input type="text" class="form-control" name="nick_name" value="<?php echo isset($user['nick_name']) ? $user['nick_name'] : '' ?>"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="name">E-mail</label>
+                                    <input type="text" class="form-control" name="email" value="<?php echo isset($user['email']) ? $user['email'] : '' ?>"/>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="name">Data de nascimento</label>
+                                    <input class="mask-date form-control" type="text" name="birth_date" value="<?php echo isset($user['birth_date']) ? $user['birth_date'] : '' ?>"/>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="name">Cidade</label>
+                                    <input id="city-id" type="hidden" name="city_id" value="<?php echo isset($user['city_id']) ? $user['city_id'] : '' ?>"/>
+                                    <input type="text" name="city_name" class="city-select form-control" 
+                                           autocomplete="off" data-list-id="city-data-list"
+                                           value="<?php echo isset($user['city']['city_name']) ? $user['city']['city_name'] . ' - ' . $user['city']['state_alias'] : '' ?>"
+                                           onclick="this.value = ''"
+                                           required=""/>
+                                    <div id="city-data-list"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <input class="btn btn-primary" type="submit" value="Gravar"/>
+                            </div>
+                        </div>    
+                    </form>   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="<?php echo BASE_URL ?>js/city/city-select.js" type="text/javascript"></script>
+<script src="<?php echo BASE_URL ?>js/user/view-user.js" type="text/javascript"></script>

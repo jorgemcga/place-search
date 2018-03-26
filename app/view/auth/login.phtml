@@ -1,0 +1,41 @@
+<div class="row">
+    <div class="col-12">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <?php require_once '../app/view/layout/main-alert.php' ?>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card-group mb-0">
+                    <div class="card p-4">
+                        <div class="card-body">
+                            <form action="<?php echo BASE_URL ?>auth/auth" method="post">
+                                <h1>Acesso</h1>
+                                <p class="text-muted">Entre na sua conta</p>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-addon"><i class="icon-envelope"></i>
+                                    </span>
+                                    <input name="email" type="text" class="form-control" placeholder="E-mail">
+                                </div>
+                                <div class="input-group mb-4">
+                                    <span class="input-group-addon"><i class="icon-lock"></i>
+                                    </span>
+                                    <input name="password" type="password" class="form-control" placeholder="Senha">
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <input type="submit" class="btn btn-primary px-4" value="Login"/>
+                                    </div>
+                                    <div class="col-6 text-right">
+                                        <div type="button" class="btn btn-link px-0" onclick="location = 'userResetPassword/form'">Esqueceu sua senha?</div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
